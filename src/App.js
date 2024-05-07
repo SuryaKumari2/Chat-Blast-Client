@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState,createContext} from 'react'
+import {BrowserRouter,Route,Routes} from 'react-router-dom'
+import Navbar from './Navbar'
+import Register from './Register'
+import Login from './Login'
+import Landing from './Landing'
+import './App.css'
 
-function App() {
+export const store=createContext();
+const App = () => {
+
+  const [token,setToken]=useState(null);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      <store.Provider value={[token,setToken]}>
+      <BrowserRouter>
+      <Navbar/>
+      <Routes>
+        <Route  path='/register' Component={Register} />
+        <Route  path='/login' Component={Login} />
+        <Route  path='/myprofile' Component={Landing} />
+      </Routes>
+      </BrowserRouter>
+      </store.Provider>
+      
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
